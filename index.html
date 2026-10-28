@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nightingale Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<style>
+  /* Layout: black logo hero, then alternating ivory and deep-olive bands; one gold accent, hairline rules, no cards.
+     Single committed look (black / olive / ivory / champagne gold), set explicitly so it reads the same in any theme. */
+  :root {
+    --ink: #080604;
+    --olive: #1f2a21;
+    --olive-2: #2a372c;
+    --ivory: #f8f6f1;
+    --beige: #d9cbb6;
+    --sage: #8c9a7e;
+    --gold: #c9a96a;
+    --gold-ink: #7a5f2c;
+    --text-dark: #1f2a21;
+    --text-soft-dark: #4b564c;
+    --text-light: #f1ece0;
+    --text-soft-light: #bfb8a6;
+    --display: 'Cormorant Garamond', 'Cormorant', 'Garamond', 'Times New Roman', serif;
+    --body: 'Jost', 'Helvetica Neue', Arial, sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text-light);
+    font-family: var(--body);
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .wrap {
+    width: 100%;
+    max-width: 1120px;
+    margin-inline: auto;
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+  .eyebrow {
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 0.74rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    margin: 0 0 22px;
+  }
+  h1, h2, h3 { font-family: var(--display); font-weight: 500; margin: 0; text-wrap: balance; }
+  h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.08; letter-spacing: 0.01em; }
+  h3 { font-size: 1.55rem; line-height: 1.2; }
+  p { margin: 0 0 1.1em; max-width: 62ch; }
+
+  /* Nav */
+  .nav {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    background: rgba(31,42,33,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201,169,106,0.3);
+  }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--olive); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px 28px; flex-wrap: wrap; padding-block: 14px; }
+  .brand { font-family: var(--display); font-size: 1.05rem; letter-spacing: 0.3em; text-transform: uppercase; text-decoration: none; color: var(--gold); white-space: nowrap; }
+  .nav ul { display: flex; flex-wrap: wrap; gap: 6px 26px; list-style: none; margin: 0; padding: 0; }
+  .nav ul a { text-decoration: none; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-soft-light); padding: 4px 0; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
+  .nav ul a:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* Hero */
+  .hero { background: var(--ivory); color: var(--text-dark); padding-block: clamp(28px, 5vw, 56px) clamp(56px, 8vw, 96px); text-align: center; }
+  .hero-logo { display: block; width: min(560px, 82%); height: auto; margin-inline: auto; }
+  .hero-tag { font-family: var(--display); font-style: italic; font-size: clamp(1.4rem, 3vw, 2rem); color: var(--gold-ink); margin: 18px auto 34px; letter-spacing: 0.04em; max-width: none; }
+  .btn {
+    display: inline-block; text-decoration: none; cursor: pointer;
+    font-family: var(--body); font-weight: 400; font-size: 0.78rem; letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--ink); background: var(--gold); border: 1px solid var(--gold);
+    padding: 16px 34px; transition: background .2s, color .2s;
+  }
+  .btn:hover { background: transparent; color: var(--gold); }
+  .hero .btn { background: var(--olive); border-color: var(--olive); color: var(--ivory); }
+  .hero .btn:hover { background: transparent; color: var(--olive); }
+
+  /* Bands */
+  .band { padding-block: clamp(64px, 10vw, 120px); }
+  .band-ivory { background: var(--ivory); color: var(--text-dark); }
+  .band-ivory .eyebrow { color: var(--gold-ink); }
+  .band-olive { background: var(--olive); color: var(--text-light); }
+  .band-olive .eyebrow { color: var(--gold); }
+  .band-beige { background: var(--beige); color: var(--text-dark); }
+  .band-beige .eyebrow { color: var(--gold-ink); }
+  .band-ink { background: var(--ink); color: var(--text-light); }
+  .band-ink .eyebrow { color: var(--gold); }
+
+  .split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px clamp(32px, 6vw, 88px); align-items: start; }
+  .split > * { min-width: 0; }
+  .lead { font-size: 1.12rem; }
+
+  /* About */
+  .about-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px clamp(28px, 5vw, 72px); margin-top: clamp(48px, 7vw, 80px); padding-top: 40px; border-top: 1px solid rgba(31,42,33,0.22); }
+  .about-pair h3 { margin-bottom: 14px; }
+  .about-pair p { color: #3c473d; }
+  .pillars { font-family: var(--display); font-style: italic; font-size: 1.7rem; color: var(--gold-ink); margin: 0 0 14px; max-width: none; }
+
+  /* Services */
+  .intro { max-width: 62ch; margin-top: 28px; color: var(--text-soft-light); }
+  .services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(24px, 4vw, 56px); margin-top: clamp(40px, 6vw, 72px); }
+  .service { padding: 28px 0 36px; border-top: 1px solid rgba(201,169,106,0.4); }
+  .service h3 { color: var(--gold); margin-bottom: 12px; }
+  .service p { margin: 0; color: var(--text-soft-light); font-size: 0.98rem; }
+
+  /* Insights */
+  .topics { margin-top: clamp(36px, 5vw, 60px); border-top: 1px solid rgba(31,42,33,0.28); }
+  .topic { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 10px clamp(24px, 5vw, 72px); padding-block: 28px; border-bottom: 1px solid rgba(31,42,33,0.28); }
+  .topic > * { min-width: 0; }
+  .topic p { margin: 0; color: var(--text-soft-dark); }
+  .topics-label { font-size: 0.72rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold-ink); margin: 40px 0 0; }
+  .note { font-family: var(--display); font-style: italic; font-size: 1.15rem; margin: 26px 0 0; color: var(--text-soft-dark); }
+
+  /* Contact */
+  .contact-lines { margin: 34px 0 0; padding: 0; list-style: none; border-top: 1px solid rgba(201,169,106,0.35); }
+  .contact-lines li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 4px 16px; padding-block: 16px; border-bottom: 1px solid rgba(201,169,106,0.35); }
+  .contact-lines .k { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); padding-top: 5px; }
+  .contact-lines .v { overflow-wrap: anywhere; color: var(--text-light); }
+  .contact-lines a { text-decoration: none; border-bottom: 1px solid rgba(201,169,106,0.5); }
+  .contact-lines a:hover { color: var(--gold); }
+  .firm { font-family: var(--display); font-size: 1.5rem; margin: 0; color: var(--beige); }
+  .firm small { display: block; font-family: var(--body); font-size: 0.72rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--text-soft-light); margin-top: 4px; }
+
+  form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 20px; }
+  .field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .field.full { grid-column: 1 / -1; }
+  label { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+  input, select, textarea {
+    width: 100%; font: inherit; font-weight: 300; color: var(--text-light);
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(201,169,106,0.4); border-radius: 0;
+    padding: 13px 14px; color-scheme: dark;
+  }
+  select option { background: var(--olive); color: var(--text-light); }
+  textarea { min-height: 150px; resize: vertical; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); background: rgba(201,169,106,0.08); }
+  .form-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 22px; }
+  .form-status { font-size: 0.92rem; color: var(--text-soft-light); margin: 0; max-width: 44ch; }
+
+  /* Footer */
+  footer { background: var(--ink); border-top: 1px solid rgba(201,169,106,0.25); padding-block: 56px 48px; text-align: center; }
+  footer .mark { font-family: var(--display); font-size: 1.4rem; letter-spacing: 0.34em; color: var(--gold); margin: 0 auto 6px; max-width: none; }
+  footer p { margin: 0 auto 6px; max-width: none; color: var(--text-soft-light); font-size: 0.86rem; letter-spacing: 0.12em; }
+  footer .pp { font-family: var(--display); font-style: italic; font-size: 1.25rem; letter-spacing: 0.06em; color: var(--beige); margin-top: 22px; }
+  footer .legal { margin-top: 28px; font-size: 0.74rem; color: #8b8573; }
+
+  @media (max-width: 860px) {
+    .split, .about-pair, .topic { grid-template-columns: minmax(0, 1fr); }
+    .services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .services { grid-template-columns: minmax(0, 1fr); }
+    form { grid-template-columns: minmax(0, 1fr); }
+    .contact-lines li { grid-template-columns: minmax(0, 1fr); }
+    .nav .wrap { justify-content: center; }
+    .nav ul { justify-content: center; gap: 4px 18px; }
+    .hero { padding-block: 20px 56px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+</style>
+
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Nightingale Atelier</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#strategy">Strategy &amp; Development</a></li>
+        <li><a href="#insights">Insights</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <img class="hero-logo" src="assets/nightingale-logo.webp" alt="Nightingale Atelier, Professional Hospitality Consulting. A nightingale on an olive branch beneath a golden ring." width="1320" height="1080">
+      <p class="hero-tag">People. Places. Possibilities.</p>
+      <a class="btn" href="#contact">Start a Conversation</a>
+    </div>
+  </section>
+
+  <section class="band band-beige" id="about">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <p class="eyebrow">01 — About</p>
+          <h2>Hospitality with Perspective.</h2>
+        </div>
+        <div class="lead">
+          <p>Nightingale Atelier was founded by Yana Soloviova, drawing on more than 20 years of international hospitality experience across hotel and resort operations, guest experience, food and beverage management, pre-opening and hospitality project development.</p>
+          <p>Our approach is grounded in a belief that successful hospitality begins with understanding a property's individual character, its market and the ambitions of the people behind it.</p>
+          <p>We combine hands-on operational knowledge with strategic thinking to support owners and developers in making informed decisions throughout the hospitality project lifecycle.</p>
+          <p>From initial concept development to operational transformation, our focus remains on practical solutions that connect vision, guest experience and long-term commercial value.</p>
+        </div>
+      </div>
+      <div class="about-pair">
+        <div>
+          <h3>Our Mission</h3>
+          <p>To support hospitality owners, investors and developers in creating distinctive and commercially resilient destinations through thoughtful strategy, operational understanding and collaborative project development.</p>
+        </div>
+        <div>
+          <h3>Our Philosophy</h3>
+          <p class="pillars">People. Places. Possibilities.</p>
+          <p>We believe successful hospitality is built on a clear vision, genuine service, operational excellence and a strong sense of place.</p>
+          <p>Every project deserves an individual approach, balancing creativity with commercial discipline and ambition with practical execution.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-olive" id="strategy">
+    <div class="wrap">
+      <p class="eyebrow">02 — Strategy &amp; Development</p>
+      <h2>From Vision to Reality.</h2>
+      <p class="intro">We provide independent strategic and operational advisory services throughout the development and transformation of hospitality assets.</p>
+      <p class="intro" style="margin-top:-0.2em">Our expertise combines concept development, market positioning, operational planning and practical implementation support.</p>
+      <div class="services">
+        <article class="service">
+          <h3>Hospitality Strategy &amp; Positioning</h3>
+          <p>Defining distinctive hospitality concepts, identifying market opportunities and developing positioning strategies aligned with the owner's vision and commercial objectives.</p>
+        </article>
+        <article class="service">
+          <h3>Project &amp; Concept Development</h3>
+          <p>Supporting hospitality projects from initial concept through development planning, operational coordination and implementation.</p>
+        </article>
+        <article class="service">
+          <h3>Hotel Pre-opening &amp; Operational Readiness</h3>
+          <p>Providing practical guidance on operational preparation, service standards, organisational requirements, guest experience and opening strategies.</p>
+        </article>
+        <article class="service">
+          <h3>Hospitality Repositioning &amp; Transformation</h3>
+          <p>Helping owners explore opportunities to transform existing hospitality assets through revised concepts, operating models and strategic positioning.</p>
+        </article>
+        <article class="service">
+          <h3>Operational Advisory</h3>
+          <p>Reviewing operational structures, service delivery and business processes to identify opportunities for improvement and support effective decision-making.</p>
+        </article>
+        <article class="service">
+          <h3>Owner &amp; Operator Advisory</h3>
+          <p>Supporting owners in assessing operating structures, management relationships and strategic alternatives, in collaboration with relevant specialist advisers where required.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-ivory" id="insights">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <p class="eyebrow">03 — Insights</p>
+          <h2>Perspectives on Hospitality.</h2>
+        </div>
+        <div class="lead">
+          <p>A collection of observations, research and professional perspectives on the evolving hospitality industry.</p>
+          <p>We explore the relationship between hospitality strategy, development, operations and changing guest expectations.</p>
+        </div>
+      </div>
+      <p class="topics-label">Proposed Editorial Topics</p>
+      <div class="topics" style="margin-top:14px">
+        <article class="topic">
+          <h3>Beyond Accommodation: The Evolution of Hospitality Destinations</h3>
+          <p>How distinctive hospitality concepts create value through experience, positioning and a strong sense of place.</p>
+        </article>
+        <article class="topic">
+          <h3>Repositioning Hospitality Assets for Long-Term Value</h3>
+          <p>Why the successful transformation of existing hotels requires more than refurbishment or rebranding.</p>
+        </article>
+        <article class="topic">
+          <h3>From Concept to Operation: Bridging the Development Gap</h3>
+          <p>Exploring the importance of operational thinking during hospitality project development.</p>
+        </article>
+      </div>
+      <p class="note">Articles will be published as original content becomes available.</p>
+    </div>
+  </section>
+
+  <section class="band band-ink" id="contact">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <p class="eyebrow">04 — Contact</p>
+          <h2>Let's Discuss Your Vision.</h2>
+          <p style="margin-top:28px;color:var(--text-soft-light)">Every hospitality project begins with an idea, an opportunity or a challenge worth exploring.</p>
+          <p style="color:var(--text-soft-light)">Whether developing a new hospitality destination, repositioning an existing property or reviewing your operational strategy, Nightingale Atelier welcomes the opportunity to discuss your plans.</p>
+
+          <ul class="contact-lines">
+            <li><span class="k">Firm</span><span class="v"><p class="firm">Nightingale Atelier<small>Professional Hospitality Consulting</small></p></span></li>
+            <li><span class="k">Phone</span><span class="v"><a href="tel:+447340798089">+44 7340 798089</a></span></li>
+            <li><span class="k">Email</span><span class="v"><a href="mailto:ioanna.nightingale@gmail.com">ioanna.nightingale@gmail.com</a></span></li>
+            <li><span class="k">Web</span><span class="v">nightingaleatelier.co.uk</span></li>
+            <li><span class="k">Based</span><span class="v">United Kingdom · Europe · International</span></li>
+          </ul>
+        </div>
+
+        <form id="enquiry" novalidate>
+          <div class="field"><label for="fn">First Name</label><input id="fn" name="fn" type="text" autocomplete="given-name" required></div>
+          <div class="field"><label for="ln">Last Name</label><input id="ln" name="ln" type="text" autocomplete="family-name" required></div>
+          <div class="field full"><label for="em">Email Address</label><input id="em" name="em" type="email" autocomplete="email" required></div>
+          <div class="field full"><label for="co">Company / Organisation</label><input id="co" name="co" type="text" autocomplete="organization"></div>
+          <div class="field full">
+            <label for="ne">Nature of Enquiry</label>
+            <select id="ne" name="ne">
+              <option>New hospitality development</option>
+              <option>Repositioning an existing property</option>
+              <option>Hotel pre-opening</option>
+              <option>Operational review</option>
+              <option>Owner &amp; operator advisory</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field full"><label for="msg">Your Message</label><textarea id="msg" name="msg" required></textarea></div>
+          <div class="form-actions">
+            <button class="btn" type="submit">Send Enquiry</button>
+            <p class="form-status" id="status" role="status"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="mark">NIGHTINGALE ATELIER</p>
+    <p>Professional Hospitality Consulting</p>
+    <p>Strategy · Development · Hospitality Advisory</p>
+    <p class="pp">People. Places. Possibilities.</p>
+    <p class="legal">© 2026 Nightingale Atelier · nightingaleatelier.co.uk</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var form = document.getElementById('enquiry');
+    var status = document.getElementById('status');
+    var TO = 'ioanna.nightingale@gmail.com';
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = function (id) { return (document.getElementById(id).value || '').trim(); };
+      if (!v('fn') || !v('ln') || !v('em') || !v('msg')) {
+        status.textContent = 'Please fill in your name, email address and message.';
+        return;
+      }
+      if (!/^\S+@\S+\.\S+$/.test(v('em'))) {
+        status.textContent = 'Please enter a valid email address.';
+        return;
+      }
+      var subject = 'Website enquiry: ' + v('ne');
+      var body = 'Name: ' + v('fn') + ' ' + v('ln') + '\n' +
+                 'Email: ' + v('em') + '\n' +
+                 'Company: ' + (v('co') || '-') + '\n' +
+                 'Nature of enquiry: ' + v('ne') + '\n\n' + v('msg');
+      var href = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      status.textContent = 'Your email app should open with this enquiry ready to send. If nothing opens, write to ' + TO + '.';
+      window.location.href = href;
+    });
+  })();
+</script>
+</body>
+</html>
